@@ -30,3 +30,7 @@ Deactivate the virtual environment:
 ## Create superuser 
 
 `py manage.py createsuperuser`
+
+## Create new app
+
+`django-admin startapp lynx`
