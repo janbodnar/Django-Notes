@@ -14,3 +14,11 @@ On Unix or MacOS: `source ./myenv/bin/activate`
 
 Deactivate the virtual environment:    
 `deactivate`
+
+## Install Django
+
+`pip install django`
+
+## Run server 
+
+`py manage.py runserver`
