@@ -1,6 +1,8 @@
 # Django-Notes
 Django framework notes
 
+## Virtual Environment
+
 1. Create Virtual Environment
 
 `py -m venv myenv`
