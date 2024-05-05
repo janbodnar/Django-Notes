@@ -26,3 +26,7 @@ Deactivate the virtual environment:
 ## Run migrations
 
 `py manage.py migrate`
+
+## Create superuser 
+
+`py manage.py createsuperuser`
