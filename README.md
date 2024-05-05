@@ -21,5 +21,5 @@ Deactivate the virtual environment:
 `py manage.py runserver` - run server  
 `py manage.py createsuperuser` - create superuser  
 `django-admin startapp lynx` - create new app  
-`py manage.py makemigrations` - make migrations
+`py manage.py makemigrations` - make migrations  
 `py manage.py migrate` - run migrations  
