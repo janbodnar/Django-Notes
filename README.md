@@ -15,22 +15,10 @@ On Unix or MacOS: `source ./myenv/bin/activate`
 Deactivate the virtual environment:    
 `deactivate`
 
-## Install Django
+## Basic commands 
 
-`pip install django`
-
-## Run server 
-
-`py manage.py runserver`
-
-## Run migrations
-
-`py manage.py migrate`
-
-## Create superuser 
-
-`py manage.py createsuperuser`
-
-## Create new app
-
-`django-admin startapp lynx`
+`pip install django` - install Django
+`py manage.py runserver` - run server
+`py manage.py migrate` - run migrations
+`py manage.py createsuperuser` - create superuser
+`django-admin startapp lynx` - create new app
