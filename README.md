@@ -3,14 +3,14 @@ Django framework notes
 
 ## Virtual Environment
 
-1. Create Virtual Environment
+Create Virtual Environment  
 
 `py -m venv myenv`
 
-2. Activate the virtual environment:
+Activate the virtual environment:  
 
 On Windows: `myenv\Scripts\activate`  
 On Unix or MacOS: `source ./myenv/bin/activate` 
 
-3. Deactivate the virtual environment:  
+Deactivate the virtual environment:    
 `deactivate`
