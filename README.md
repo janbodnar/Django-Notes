@@ -22,3 +22,7 @@ Deactivate the virtual environment:
 ## Run server 
 
 `py manage.py runserver`
+
+## Run migrations
+
+`py manage.py migrate`
