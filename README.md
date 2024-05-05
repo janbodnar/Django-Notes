@@ -19,6 +19,7 @@ Deactivate the virtual environment:
 
 `pip install django` - install Django  
 `py manage.py runserver` - run server  
-`py manage.py migrate` - run migrations  
 `py manage.py createsuperuser` - create superuser  
 `django-admin startapp lynx` - create new app  
+`py manage.py makemigrations` - make migrations
+`py manage.py migrate` - run migrations  
