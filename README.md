@@ -23,3 +23,30 @@ Deactivate the virtual environment:
 `django-admin startapp lynx` - create new app  
 `py manage.py makemigrations` - make migrations  
 `py manage.py migrate` - run migrations  
+
+
+## Plain text HttpResponse
+
+In `urls.py`:  
+
+```python
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+    path('', views.home),
+    path('hello', views.hello, name='hello'),
+]
+```
+
+In `views.py`:  
+
+```python
+from django.http import HttpResponse
+
+def hello(req):
+
+    return HttpResponse('Hello there!', content_type='text/plain')
+```
+
