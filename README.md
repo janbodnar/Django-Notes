@@ -149,3 +149,4 @@ def get_image(req):
     return resp
 ```
 
+The `FileResponse` closes the file automatically.  
