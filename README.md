@@ -50,3 +50,5 @@ def hello(req):
     return HttpResponse('Hello there!', content_type='text/plain')
 ```
 
+launch request with:  `http localhost:8000/hello`  
+
