@@ -63,5 +63,16 @@ def hello(req):
     return HttpResponse('Hello there!', content_type='text/plain')
 ```
 
+or 
+
+```python
+def hello(req):
+
+    http_response = HttpResponse('', content_type='text/plain')
+    http_response.write('Ahoy!')
+
+    return http_response
+```
+
 launch request with:  `http localhost:8000/hello`  
 
