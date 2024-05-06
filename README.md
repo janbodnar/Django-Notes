@@ -103,3 +103,49 @@ def user_agent(req: HttpRequest):
     ua = req.META['HTTP_USER_AGENT']
     return HttpResponse(ua, content_type='text/plain')
 ```
+
+## Send file 
+
+In `views.py`:  
+
+```python
+from django.http import HttpResponse, HttpResponseNotFound
+
+def get_image(req):
+
+    sid_path = 'lynx/images/sid.png'
+
+    try:
+        with open(sid_path, 'rb') as f:
+           data = f.read()
+
+        resp = HttpResponse(data, content_type='image/png')
+        # resp['Content-Disposition'] = 'attachment; filename="sid.png"'
+        resp['Content-Disposition'] = 'inline; filename="sid.png"'
+
+
+    except IOError:
+        resp = HttpResponseNotFound('<h2>file does not exist</h2>')
+
+    return resp
+```
+
+or 
+
+```python
+from django.http import FileResponse, HttpResponseNotFound
+
+
+def get_image(req):
+
+    sid_path = 'lynx/images/sid.png'
+    try:
+        resp = FileResponse(open(sid_path, 'rb'), as_attachment=False,
+                            filename='sid.png')
+
+    except IOError:
+        resp = HttpResponseNotFound('<h2>file does not exist</h2>')
+
+    return resp
+```
+
