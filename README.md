@@ -15,6 +15,21 @@ On Unix or MacOS: `source ./myenv/bin/activate`
 Deactivate the virtual environment:    
 `deactivate`
 
+## Include URLs from module (app)
+
+In the main project's `urls.py` file, add the `path`.  
+
+```python
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('lynx.urls')),
+]
+```
+
+
 ## Basic commands 
 
 `pip install django` - install Django  
