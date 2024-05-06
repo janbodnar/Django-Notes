@@ -101,5 +101,5 @@ from django.http import HttpRequest, HttpResponse
 def user_agent(req: HttpRequest):
 
     ua = req.META['HTTP_USER_AGENT']
-    return HttpResponse(ua, content_type='plain/text')
+    return HttpResponse(ua, content_type='text/plain')
 ```
