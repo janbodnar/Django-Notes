@@ -66,6 +66,8 @@ def hello(req):
 or 
 
 ```python
+from django.http import HttpResponse
+
 def hello(req):
 
     http_response = HttpResponse('', content_type='text/plain')
