@@ -80,3 +80,26 @@ def hello(req):
 
 launch request with:  `http localhost:8000/hello`  
 
+## Determine user agent 
+
+In `urls.py`, add the `user-agent/` endpoint.  
+
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('user-agent/', views.user_agent, name='user-agent' ),
+]
+```
+
+From the `HttpRequest` object get the user agent and return it with `HttpResponse`.   
+
+```python
+from django.http import HttpRequest, HttpResponse
+
+def user_agent(req: HttpRequest):
+
+    ua = req.META['HTTP_USER_AGENT']
+    return HttpResponse(ua, content_type='plain/text')
+```
