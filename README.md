@@ -80,6 +80,38 @@ def hello(req):
 
 launch request with:  `http localhost:8000/hello`  
 
+
+## Static files 
+
+By default, static files are served from the `static` subdirectory of each module.  
+Additional static directories can be specified in `STATICFILES_DIRS ` in `settings.py`.  
+
+```html
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ article.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    
+    {{ article.title }}
+    <br>
+    {{ article.description }}
+
+</body>
+</html>
+```
+
+Static files are loaded with `{% load static %}` and later referenced with command such as `{% static 'css/style.css' %}`.   
+
+
+
+
 ## Determine user agent 
 
 In `urls.py`, add the `user-agent/` endpoint.  
