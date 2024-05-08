@@ -214,6 +214,8 @@ urlpatterns = [
 ]
 ```
 
+Resolve `JavaScript files are resolving to the wrong content type` error on  
+Windows:  
 
 ```python
 import mimetypes
