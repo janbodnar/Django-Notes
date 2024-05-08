@@ -183,6 +183,37 @@ def get_image(req):
 
 The `FileResponse` closes the file automatically.  
 
+## Upload images
+
+Install pillow: `pip install pillow`.  
+
+In `settings.py`: 
+
+```python
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+```
+
+In main `urls.py` add:  
+
+```python
+from django.conf import settings
+
+urlpatterns += static(settings.MEDIA_URL,
+                      document_root=settings.MEDIA_ROOT)
+```
+
+Model:  
+
+```python
+class Article(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    banner = models.ImageField(default='flag.png', blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+...
+```
+
 
 ## Enable toolbar
 
