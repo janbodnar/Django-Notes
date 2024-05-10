@@ -262,6 +262,65 @@ INTERNAL_IPS = [
 ]
 ```
 
+## Pagination
+
+Fetch messages and send them in paginator object.  
+
+```python
+from django.shortcuts import render
+from django.core.paginator import Paginator, EmptyPage
+
+
+from .models import Message
+
+
+def index(request):
+
+    messages = Message.objects.all()
+    paginator = Paginator(messages, 20)
+
+    try:
+        page_num = request.GET.get('page', 1)
+        page = paginator.page(page_num)
+    except EmptyPage as e:
+        page = paginator.page(1)
+
+    ctx = {'messages': page}
+
+    return render(request, 'index.html', ctx)
+```
+
+Display messages in template.  
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    {% for message in messages %}
+    {{ message.text }}
+    <br>
+    {% endfor %}
+
+    {% if messages.has_previous %}
+    <a href="{% url 'index' %}?page={{messages.previous_page_number}}">Previous page</a>
+    {% endif %}
+
+    {% if messages.has_next %}
+    <a href="{% url 'index' %}?page={{messages.next_page_number}}">Next page</a>
+    {% endif %}
+
+
+</body>
+</html>
+```
+
+
 
 
 
