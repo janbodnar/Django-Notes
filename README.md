@@ -333,9 +333,121 @@ Display messages in template.
 </html>
 ```
 
+## Slugs
+
+A slug is a user and seo friendly way of creating meaningful URLs to refer to our documents.  
+
+```python
+from django.db import models
 
 
+class Article(models.Model):
+    title = models.CharField(max_length=255)
+    body = models.TextField()
+    slug = models.SlugField(max_length=255)
 
+    def __str__(self):
+        return self.title
+```
+
+The `Article` model contains the `models.SlugField` attribute.  
+
+```python
+from django.contrib import admin
+from . models import Article
+
+
+@admin.register(Article)
+class (admin.ModelAdmin):
+    list_display = ['title', 'body', 'slug']
+    list_filter = ['title', 'body', 'slug']
+    search_fields = ['title', 'body']
+    prepopulated_fields = {'slug': ('title',)}
+```
+
+The `ArticleAdmin` model causes the slug to be automatically generated when writing a  
+title to our article using `prepopulated_fields`.  
+
+```python
+from django.shortcuts import render
+from . models import Article
+
+
+def index(request):
+
+    articles = Article.objects.all()
+    ctx = {'articles': articles}
+
+    return render(request, 'index.html', ctx)
+
+
+def show_article(request, slug):
+
+    content = Article.objects.get(slug=slug)
+    ctx = {'content': content}
+
+    return render(request, 'show_article.html', context=ctx)
+```
+
+In the home page, we show all articles and in the `show_article.html` we show the contents of the  
+currently selected article. We retrieve the articles by their slug via `Article.objects.get(slug=slug)`.  
+
+```python
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+    path('', views.index),
+    path('<slug:slug>', views.show_article, name='show-article'),
+]
+```
+
+We use `<slug:slug>` to map the slug to the show-article view.  
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    {% for article in articles %}
+
+       <a href="{{ article.slug }}">{{ article.title }}</a> <br>
+
+    {% endfor %}
+
+</body>
+
+</html>
+```
+
+In the home page (`index.html`), we list all artiles. The links are the slugs of the articles.  
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h2>{{ content.title  }}</h2>
+    
+
+    {{ content.body }}
+
+</body>
+</html>
+```
+
+We display the title an the body of the article in `show_article.html`.    
 
 
 
