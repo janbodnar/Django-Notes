@@ -449,5 +449,76 @@ In the home page (`index.html`), we list all artiles. The links are the slugs of
 
 We display the title an the body of the article in `show_article.html`.    
 
+## get_object_or_404
 
+The `get_object_or_404` is a shortcut to send 404 page if an object is not found.  
+
+```python
+from django.http import Http404
+from django.shortcuts import render, get_object_or_404
+
+
+from .models import Product
+
+
+def product_detail(request, pid):
+
+    # try:
+    #     product = Product.objects.get(id=pid)
+    #     ctx = {'product': product}
+    # except Product.DoesNotExist:
+    #     raise Http404
+
+    product = get_object_or_404(Product, id=pid)
+    ctx = {'product': product}
+
+    return render(request, 'product_detail.html', ctx)
+```
+
+We get a `Product` by its id.  
+
+```python
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+    path("products/<pid>/", views.product_detail, name ="product-detail"),
+]
+```
+
+The `products/<pid>/` path automaticall adds `pid` parameter to the `views.product_detail` function.  
+
+```python
+from django.db import models
+
+class Product(models.Model):
+    name = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+
+
+    def __str__(self):
+        return self.name
+```
+
+A `Product` model.  
+
+```python
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <p>
+        {{ product.name}} - {{ product.price }}
+    </p>
+</body>
+
+</html>
+```
+
+Display product name and price.  
 
