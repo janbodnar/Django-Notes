@@ -1,5 +1,9 @@
 # Serialization 
 
+Transform data into JSON
+
+## values method
+
 Model:
 
 ```python
