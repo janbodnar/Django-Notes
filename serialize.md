@@ -4,6 +4,8 @@ Transform data into JSON
 
 ## values method
 
+We can utilize `values` method and/or list comprehensions.  
+
 Model:
 
 ```python
