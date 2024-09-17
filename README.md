@@ -5,12 +5,12 @@ Django framework notes
 
 Create Virtual Environment  
 
-`py -m venv myenv`
+`py -m venv .venv`
 
 Activate the virtual environment:  
 
-On Windows: `myenv\Scripts\activate`  
-On Unix or MacOS: `source ./myenv/bin/activate` 
+On Windows: `.venv\Scripts\activate`  
+On Unix or MacOS: `source ./.venv/bin/activate` 
 
 Deactivate the virtual environment:    
 `deactivate`
@@ -18,8 +18,8 @@ Deactivate the virtual environment:
 ## Basic commands 
 
 `pip install django` - install Django  
-`django-admin startproject myapp ` - create new Django project  
-`django-admin startproject myapp .` - create new Django project within current directory  
+`django-admin startproject main ` - create new Django project  
+`django-admin startproject main .` - create new Django project within current directory  
 `py manage.py runserver` - run server  
 `py manage.py createsuperuser` - create superuser  
 `django-admin startapp lynx` - create new app  
@@ -80,6 +80,32 @@ def hello(req):
 
 launch request with:  `http localhost:8000/hello`  
 
+
+## Custom 404 error message
+
+IN `settings.py`, set:
+
+```python
+DEBUG = False
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost',]
+```
+
+In main `urls.py`, set `handler404`:
+
+```python
+from django.conf.urls import handler404
+
+...
+handler404 = 'webapp.views.page_not_found'
+```
+
+In webapp's `views.py`:
+
+```python
+def page_not_found(req, exception):
+    # return render(req, 'errors/error_404.html')
+    return HttpResponse('404 - page not found', content_type='text/plain')
+```
 
 ## Static files 
 
