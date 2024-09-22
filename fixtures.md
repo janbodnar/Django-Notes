@@ -83,7 +83,7 @@ def home(req):
 `py manage.py dumpdata testapp > testapp.json` - specific app  
 `py manage.py dumpdata testapp.customer > customers.json` - specific table  
 `py manage.py dumpdata --exclude auth.persmisson > db.json` - exclude specified apps/tables  
-`py manage.py dumpdata --format yaml testapp.customer > db.json` - specify format (JSON,XML,YAML)  
+`py manage.py dumpdata --format yaml testapp.customer > customers.yaml` - specify format (JSON,XML,YAML)  
 `py manage.py dumpdata --format xml --indent 2 testapp.customer > customers.xml` - pretty print  
 
 
