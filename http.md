@@ -1,6 +1,46 @@
 # HTTP 
 
 
+## Plain text HttpResponse
+
+In `urls.py`:  
+
+```python
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+    path('', views.home),
+    path('hello', views.hello, name='hello'),
+]
+```
+
+In `views.py`:  
+
+```python
+from django.http import HttpResponse
+
+def hello(req):
+
+    return HttpResponse('Hello there!', content_type='text/plain')
+```
+
+or 
+
+```python
+from django.http import HttpResponse
+
+def hello(req):
+
+    http_response = HttpResponse('', content_type='text/plain')
+    http_response.write('Ahoy!')
+
+    return http_response
+```
+
+launch request with:  `http localhost:8000/hello`  
+
 ## URL parameters
 
 In `views.py`:  
