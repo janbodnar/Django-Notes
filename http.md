@@ -6,10 +6,10 @@
 Path convertors: 
 
 * `int` – Matches zero or any positive integer.
-* `str` – Matches any non-empty string, excluding the path separator(‘/’).
-* `slug` – Matches any slug string, i.e. a string consisting of alphabets, digits, hyphen and under score.
-* `path` – Matches any non-empty string including the path separator(‘/’)
-* `uuid` – Matches a UUID(universal unique identifier).
+* `str` – Matches any non-empty string, excluding the path separator ('/').
+* `slug` – Matches any slug string, i.e. a string consisting of alphabets, digits, hyphen and underscore.
+* `path` – Matches any non-empty string including the path separator ('/')
+* `uuid` – Matches a UUID (universal unique identifier).
 
 In `urls.py`:
 
