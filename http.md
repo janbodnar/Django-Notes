@@ -3,6 +3,29 @@
 
 ## URL parameters
 
+In `views.py`:  
+
+```python
+def params(req):
+
+    params = req.GET.dict()
+    return JsonResponse(params)
+```
+
+In `urls.py`:
+
+```python
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+    path('params/', views.params),
+]
+```
+
+## URL path parameters
+
 Path convertors: 
 
 * `int` – Matches zero or any positive integer.
