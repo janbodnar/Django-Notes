@@ -76,3 +76,14 @@ def home(req):
 
     return JsonResponse(data)
 ```
+
+## Dumping data 
+
+`py manage.py dumpdata > db.json` - whole database  
+`py manage.py dumpdata testapp > testapp.json` - specific app  
+`py manage.py dumpdata testapp.customer > customers.json` - specific table  
+`py manage.py dumpdata --exclude auth.persmisson > db.json` - exclude specified apps/tables  
+`py manage.py dumpdata --format yaml testapp.customer > db.json` - specify format (JSON,XML,YAML)  
+
+
+
