@@ -41,18 +41,25 @@ def hello(req):
 
 launch request with:  `http localhost:8000/hello`  
 
-## require_GET
+## Limiting methods
 
 Limiting views to a specific HTTP method.  
 
 ```python
 from django.http import HttpResponse
-from django.views.decorators.http import require_GET
+from django.views.decorators.http import require_GET, require_http_methods
+from django.views.decorators.csrf import csrf_exempt
 
 @require_GET
 def hello(req):
 
     return HttpResponse('Hello there!', content_type='text/plain')
+
+@require_http_methods(["GET", "HEAD"])
+@csrf_exempt
+def status(req):
+   
+   return HttpResponse(status=200)
 ```
 
 ## URL parameters
