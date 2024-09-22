@@ -18,7 +18,7 @@ Django will search in these locations for fixtures:
 `py manage.py loaddata mydata.json` looks for `mydata.json` fixture in the aforementioned locations.  
 `py manage.py loaddata mydata` looks for fixture with JSON, XML, or YAML formats.  
 
-Test data:  
+Test data `customers.yaml`:  
 
 ```yaml
 - model: testapp.customer
@@ -46,6 +46,9 @@ Test data:
     last_name: Novak
     occupation: teacher
 ```
+
+Load data with `python manage.py loaddata customers.yaml`
+
 
 In `models.py`:
 
