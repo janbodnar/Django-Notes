@@ -40,6 +40,38 @@ urlpatterns = [
 ]
 ```
 
+## JSON serialize 
+
+Use the `values` method to serialize Django models. The method returns a `QuerySet`   
+that returns dictionaries, rather than model instances, when used as an iterable.   
+
+In `models.py`:  
+
+```python
+from django.db import models
+
+# Create your models here.
+
+class Customer(models.Model):
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    occupation = models.CharField(max_length=255)
+```
+
+In `views.py`:  
+
+```python
+from django.http import JsonResponse
+
+from .models import Customer
+
+def home(req):
+
+    customers = Customer.objects.all().values()
+    data = {'customers': list(customers)}
+
+    return JsonResponse(data)
+```
 
 
 ## Custom 404 error message
