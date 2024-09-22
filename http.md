@@ -19,7 +19,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('test/<name>/', views.hello_url),
+    path('hello/<name>/', views.hello_url),
     path('random/<int:n>/', views.random_vals),
     path('', views.home),
 ]
