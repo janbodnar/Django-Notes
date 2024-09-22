@@ -17,3 +17,48 @@ Django will search in these locations for fixtures:
 
 `py manage.py loaddata mydata.json` looks for `mydata.json` fixture in the aforementioned locations.  
 `py manage.py loaddata mydata` looks for fixture with JSON, XML, or YAML formats.  
+
+Test data:  
+
+```yaml
+- model: testapp.customer
+  pk: 1
+  fields:
+    first_name: John
+    last_name: Doe
+    occupation: gardener
+- model: testapp.customer
+  pk: 2
+  fields:
+    first_name: Roger
+    last_name: Roe
+    occupation: driver
+- model: testapp.customer
+  pk: 3
+  fields:
+    first_name: Paul
+    last_name: Smith
+    occupation: teacher
+- model: testapp.customer
+  pk: 4
+  fields:
+    first_name: Lucia
+    last_name: Novak
+    occupation: teacher
+```
+
+
+In `views.py`:
+
+```python
+from django.http import JsonResponse
+
+from .models import Customer
+
+def home(req):
+
+    customers = Customer.objects.all().values()
+    data = {'customers': list(customers)}
+
+    return JsonResponse(data)
+```
