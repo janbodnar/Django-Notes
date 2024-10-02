@@ -2,14 +2,18 @@
 
 First, we need to manually create `management/commands` directories inside an app.  
 
+The filename is `hello.py`:
+
 ```python
 from django.core.management.base import BaseCommand
 
 class Command(BaseCommand):
-    help = 'Displays current time'
+    help = 'Displays hello message'
 
     def handle(self, *args, **kwargs):
         self.stdout.write(self.style.NOTICE('Hello!'))
 ```
 
-This command shows a hello message.  
+The command is then launched with `py manage.py hello`. 
+
+
