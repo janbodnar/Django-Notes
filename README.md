@@ -22,9 +22,10 @@ Deactivate the virtual environment:
 `django-admin startproject main .` - create new Django project within current directory  
 `py manage.py runserver` - run server  
 `py manage.py createsuperuser` - create superuser  
-`django-admin startapp lynx` - create new app  
+`django-admin startapp myqpp` - create new app  
 `py manage.py makemigrations` - make migrations  
 `py manage.py migrate` - run migrations  
+`py manage.py flush` clean the database; need to create a new superuser  
 
 ## Include URLs from module (app)
 
