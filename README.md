@@ -234,6 +234,13 @@ class Article(models.Model):
 ...
 ```
 
+## PRG pattern
+
+After submitting POST data, return `HttpResponseRedirect`.  
+
+```python
+return HttpResponseRedirect(reverse('home'))
+```
 
 ## Enable toolbar
 
