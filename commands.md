@@ -21,6 +21,8 @@ Run `py manage.py` to list all available commands.
 
 ## seed command 
 
+`py manage.py flush` cleans the database; need to create a new superuser.  
+
 ```python
 from django.db import models
 
