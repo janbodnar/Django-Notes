@@ -22,6 +22,17 @@ Run `py manage.py` to list all available commands.
 ## seed command 
 
 ```python
+from django.db import models
+
+# Create your models here.
+
+class Message(models.Model):
+
+    text = models.CharField(max_length=255)
+    created= models.DateField(auto_now_add=False)
+```
+
+```python
 from django.core.management.base import BaseCommand
 
 from faker import Faker
@@ -41,6 +52,7 @@ class Command(BaseCommand):
                             help='# of messages to create', nargs='?')
 
         group.add_argument('-c', '--clear', action='store_true', help='clear messages')
+
 
     def handle(self, *args, **kwargs):
 
