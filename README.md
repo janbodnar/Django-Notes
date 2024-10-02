@@ -77,7 +77,7 @@ def home(req):
 
 ## Custom 404 error message
 
-IN `settings.py`, set:
+In `settings.py`, set:
 
 ```python
 DEBUG = False
