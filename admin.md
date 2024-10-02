@@ -29,7 +29,6 @@ from django.contrib import admin
 
 from . models import Message
 
-# Register your models here.
 
 class MessageAdmin(admin.ModelAdmin):
     
@@ -39,3 +38,22 @@ class MessageAdmin(admin.ModelAdmin):
 
 admin.site.register(Message, MessageAdmin)
 ```
+
+## Ordering 
+
+```python
+from django.contrib import admin
+
+from . models import Message
+
+
+class MessageAdmin(admin.ModelAdmin):
+    
+    list_display = ['text', 'created']
+    list_per_page = 10
+    ordering = ['-created']
+
+
+admin.site.register(Message, MessageAdmin)
+```
+
