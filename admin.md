@@ -3,6 +3,10 @@
 Available at: `http://127.0.0.1:8000/admin/`. 
 
 
+To access the admin account, we need to create a superuser:  
+`py manage.py createsuperuser - create superuser`
+
+
 ## Create pagination
 
 ```python
