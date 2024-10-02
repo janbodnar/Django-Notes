@@ -53,14 +53,12 @@ class Command(BaseCommand):
 
         total = kwargs['total']
 
-
         faker = Faker()
 
         for _ in range(total):
 
             msg = faker.text(max_nb_chars=30)
-            created = faker.date_between()
-            print(created)
+            created = faker.date_between('-10y', 'today')
             message = Message(text=msg, created=created)
             message.save()
 
