@@ -16,4 +16,4 @@ class Command(BaseCommand):
 
 The command is then launched with `py manage.py hello`. 
 
-
+Run `py manage.py` to list all available commands.  
