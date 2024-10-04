@@ -78,3 +78,6 @@ class TestView(View):
         return HttpResponse('post request')
 ```
 
+Sending POST request in the terminal using httpie tool:
+
+`http POST localhost:8000/test/`
