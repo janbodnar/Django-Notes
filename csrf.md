@@ -46,3 +46,27 @@ In this example, `{% csrf_token %}` automatically inserts the CSRF token into th
 
 If we need to disable CSRF protection for specific views, you can use the `@csrf_exempt` decorator.  
 However, exercise caution when doing so, as it can introduce vulnerabilities.  
+
+Disabling CSRF for a view:  
+
+```python
+from django.views.decorators.csrf import csrf_exempt
+
+path("test/", csrf_exempt(views.TestView.as_view()))
+```
+
+or  
+
+```python
+from django.views.generic import View
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class TestView(View):
+
+    def get(self, req):
+        return HttpResponse('get request')
+```
+
