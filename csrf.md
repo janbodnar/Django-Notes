@@ -68,5 +68,8 @@ class TestView(View):
 
     def get(self, req):
         return HttpResponse('get request')
+
+    def post(self, req):
+        return HttpResponse('post request')
 ```
 
