@@ -82,6 +82,8 @@ class MessageForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea, required=True)
 ```
 
+We include `field.errors` for displaying validation errors.  
+
 ```python
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse 
@@ -114,7 +116,7 @@ def home(req: HttpRequest):
             return render(req, 'index.html', {'form': mform})
 ```
 
-We include `field.errors` for displaying validation errors.  
+
 
 ```html
 <!DOCTYPE html>
