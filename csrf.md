@@ -57,6 +57,8 @@ Disabling CSRF for a view:
 ```python
 from django.views.decorators.csrf import csrf_exempt
 
+from . import views
+
 path("test/", csrf_exempt(views.TestView.as_view()))
 ```
 
