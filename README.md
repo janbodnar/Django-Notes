@@ -552,3 +552,119 @@ A `Product` model.
 
 Display product name and price.  
 
+## Select tag
+
+In `models.py`: 
+
+```python
+from django.db import models
+
+
+class User(models.Model):
+
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    occupation = models.CharField(max_length=255)
+
+    def __str__(self):
+
+        return f'{self.first_name} {self.last_name}'
+```
+
+In `views.py`:  
+
+```python
+from django.shortcuts import render
+from django.http import HttpRequest
+
+from .models import User
+
+
+def show_users(req: HttpRequest):
+
+    if req.method == 'POST':
+
+        occupation = req.POST.get('occupation')
+        if occupation == 'all':
+            users = users = User.objects.all()
+        else:
+
+            users = User.objects.filter(occupation=occupation)
+
+        occupations = User.objects.order_by().values_list(
+            'occupation', flat=True).distinct()
+
+        return render(req, 'index.html', {'users': users, 'options': occupations})
+
+    else:
+
+        occupations = User.objects.order_by().values_list(
+            'occupation', flat=True).distinct()
+        all = User.objects.all()
+
+        return render(req, 'index.html', {'users': all, 'options': occupations})
+```
+
+Template: 
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home page</title>
+</head>
+
+<body>
+
+    <h2>Search users</h2>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <select name="occupation">
+            <option selected disabled="true">Select occupation</option>
+            <option option="all">all</option>
+            {% for option in options %}
+            <option value="{{ option}}">{{ option }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Submit" />
+
+        <table>
+            <thead>
+                <tr>
+                    <td>First name</td>
+                    <td>Last name</td>
+                    <td>Occupation</td>
+                </tr>
+
+            </thead>
+
+            {% for user in users %}
+            <tr>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.occupation }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </form>
+
+
+</body>
+
+</html>
+```
+
+
+
+
+
+
