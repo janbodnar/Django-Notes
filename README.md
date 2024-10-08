@@ -476,6 +476,84 @@ In the home page (`index.html`), we list all artiles. The links are the slugs of
 
 We display the title an the body of the article in `show_article.html`.    
 
+## DoesNotExist
+
+In `urls.py`:
+
+```python
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+    path('<int:customer_id>/', views.detail),
+]
+```
+
+In `models.py`:
+
+```python
+from django.db import models
+
+
+class Customer(models.Model):
+
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.EmailField()
+
+    def __str__(self):
+        
+        return f'{self.first_name} {self.last_name}'
+```
+
+In `views.py`:
+
+```python
+from django.shortcuts import render
+from django.http import HttpRequest, Http404
+
+
+from . models import Customer
+
+
+def detail(req: HttpRequest, customer_id: int):
+
+    try:
+        customer = Customer.objects.get(pk=customer_id)
+    except Customer.DoesNotExist:
+        raise Http404('Customer does not exist')
+
+    ctx = {'customer': customer}
+
+    return render(req, 'myapp/detail.html', ctx)
+````
+
+In `myapp/detail.py`: 
+
+```python
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer detail</title>
+</head>
+<body>
+
+    <h2>Customer detail</h2>
+    
+    <ul>
+        <li>{{ customer.first_name }}</li>
+        <li>{{ customer.last_name }}</li>
+        <li>{{ customer.email }}</li>
+    </ul>
+
+
+</body>
+</html>
+```
+
+
 ## get_object_or_404
 
 The `get_object_or_404` is a shortcut to send 404 page if an object is not found.  
