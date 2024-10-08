@@ -478,6 +478,9 @@ We display the title an the body of the article in `show_article.html`.
 
 ## DoesNotExist
 
+Django's `DoesNotExist` exception is a specific exception raised when a queryset is empty.  
+This typically occurs when we attempt to access an object that doesn't exist in the database.
+
 In `urls.py`:
 
 ```python
@@ -531,7 +534,7 @@ def detail(req: HttpRequest, customer_id: int):
 
 In `myapp/detail.py`: 
 
-```python
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
