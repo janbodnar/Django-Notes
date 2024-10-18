@@ -68,7 +68,7 @@ def get_users_by_age(age):
     return customers
 ```
 
-Similartly, we can create a custom `age` property on the model:
+Similarly, we can create a custom `age` property on the model:
 
 ```python
 from django.db import models
