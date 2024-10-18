@@ -100,7 +100,7 @@ Attributes are later referred to in the template:
 <ul>
     {% for customer in customers %}
 
-    <li>{{ customer.first_name }} {{ customer.last_name }} {{customer.occupation}} {{ customer.cage }}</li>
+    <li>{{ customer.first_name }} {{ customer.last_name }} {{customer.occupation}} {{ customer.age }}</li>
 
     {% endfor%}
 </ul>
