@@ -30,6 +30,25 @@ object-oriented interface. It automates many common database tasks, making devel
 and reducing the likelihood of errors.
 
 
+## The annotate method
+
+The annotate method in Django ORM is used to add a calculated field to each object in  
+a `QuerySet`. Essentially, it allows you to generate summary values on a per-object basis.  
+These annotations are defined as expressions that use the aggregate functions provided  
+by Django's ORM, like `Count`, `Sum`, `Avg`, `Max`, and `Min`. For example, if you have a model  
+for books and you want to add the number of authors for each book, you could use annotate 
+with `Count` to achieve this. It's a way to enrich your `QuerySet` with additional computed data.
+
+## QuerySet
+
+A Django `QuerySet` is a collection of database queries to retrieve objects from your database.  
+It's like a list of objects but with database superpowers: you can filter, sort, and manipulate  
+the data without writing raw SQL queries. QuerySets are lazy, meaning they're not executed until  
+you actually need the data. This efficiency lets you chain multiple filters and operations without  
+hitting the database multiple times. It's a powerful feature that makes interacting with your data  
+both efficient and Pythonic.
+
+
 ## Raw SQL
 
  Calculate age in raw SQL (SQLite specific syntax):  
