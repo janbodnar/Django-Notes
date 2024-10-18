@@ -30,15 +30,6 @@ object-oriented interface. It automates many common database tasks, making devel
 and reducing the likelihood of errors.
 
 
-## The annotate method
-
-The annotate method in Django ORM is used to add a calculated field to each object in  
-a `QuerySet`. Essentially, it allows you to generate summary values on a per-object basis.  
-These annotations are defined as expressions that use the aggregate functions provided  
-by Django's ORM, like `Count`, `Sum`, `Avg`, `Max`, and `Min`. For example, if you have a model  
-for books and you want to add the number of authors for each book, you could use annotate  
-with `Count` to achieve this. It's a way to enrich your `QuerySet` with additional computed data.
-
 ## QuerySet
 
 A Django `QuerySet` is a collection of database queries to retrieve objects from your database.  
@@ -48,6 +39,36 @@ you actually need the data. This efficiency lets you chain multiple filters and 
 hitting the database multiple times. It's a powerful feature that makes interacting with your data  
 both efficient and Pythonic.
 
+
+## The annotate method
+
+The annotate method in Django ORM is used to add a calculated field to each object in  
+a `QuerySet`. Essentially, it allows you to generate summary values on a per-object basis.  
+These annotations are defined as expressions that use the aggregate functions provided  
+by Django's ORM, like `Count`, `Sum`, `Avg`, `Max`, and `Min`. For example, if you have a model  
+for books and you want to add the number of authors for each book, you could use annotate  
+with `Count` to achieve this. It's a way to enrich your `QuerySet` with additional computed data.
+
+
+
+```python
+def get_users_by_age(age):
+
+    today = datetime.now()
+    cutoff_date = today.replace(year=today.year - age)
+
+    # Querying customers whose dob is less than or equal to cutoff_date
+    customers = Customer.objects.annotate(
+        dob_as_date=Cast('dob', output_field=models.DateField()),
+        age=models.ExpressionWrapper(
+            today - models.F('dob'), output_field=models.IntegerField())
+
+        # age=models.ExpressionWrapper(models.Value(today.year) - Cast('dob', output_field=models.DateField()).year,
+        #                              output_field=models.IntegerField())
+    ).filter(dob_as_date__lte=cutoff_date)
+
+    return customers
+```
 
 ## Raw SQL
 
