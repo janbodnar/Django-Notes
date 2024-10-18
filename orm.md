@@ -50,6 +50,7 @@ for books and you want to add the number of authors for each book, you could use
 with `Count` to achieve this. It's a way to enrich your `QuerySet` with additional computed data.
 
 
+Adding the `calculated_age` attribute via the `annotate` method.
 
 ```python
 def get_users_by_age(age):
@@ -60,12 +61,39 @@ def get_users_by_age(age):
     # Querying customers whose dob is less than or equal to cutoff_date
     customers = Customer.objects.annotate(
         dob_as_date=Cast('dob', output_field=models.DateField()),
-        age=models.ExpressionWrapper(
+        calculated_age=models.ExpressionWrapper(
             today - models.F('dob'), output_field=models.IntegerField())
     ).filter(dob_as_date__lte=cutoff_date)
 
     return customers
 ```
+
+Similartly, we can create a custom `age` property on the model:
+
+```python
+from django.db import models
+from datetime import date
+from dateutil.relativedelta import relativedelta
+
+
+class Customer(models.Model):
+
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    occupation = models.CharField(max_length=255)
+    dob = models.CharField(max_length=15)
+
+    @property
+    def age(self):
+        birthdate = date.fromisoformat(self.dob)
+        today = date.today()
+        return relativedelta(today, birthdate).years
+        
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+```
+
 
 ## Raw SQL
 
