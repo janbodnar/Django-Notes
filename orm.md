@@ -36,7 +36,7 @@ The annotate method in Django ORM is used to add a calculated field to each obje
 a `QuerySet`. Essentially, it allows you to generate summary values on a per-object basis.  
 These annotations are defined as expressions that use the aggregate functions provided  
 by Django's ORM, like `Count`, `Sum`, `Avg`, `Max`, and `Min`. For example, if you have a model  
-for books and you want to add the number of authors for each book, you could use annotate 
+for books and you want to add the number of authors for each book, you could use annotate  
 with `Count` to achieve this. It's a way to enrich your `QuerySet` with additional computed data.
 
 ## QuerySet
