@@ -94,6 +94,18 @@ class Customer(models.Model):
         return f'{self.first_name} {self.last_name}'
 ```
 
+Attributes are later referred to in the template: 
+
+```html
+<ul>
+    {% for customer in customers %}
+
+    <li>{{ customer.first_name }} {{ customer.last_name }} {{customer.occupation}} {{ customer.cage }}</li>
+
+    {% endfor%}
+</ul>
+```
+
 
 ## Raw SQL
 
