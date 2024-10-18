@@ -62,9 +62,6 @@ def get_users_by_age(age):
         dob_as_date=Cast('dob', output_field=models.DateField()),
         age=models.ExpressionWrapper(
             today - models.F('dob'), output_field=models.IntegerField())
-
-        # age=models.ExpressionWrapper(models.Value(today.year) - Cast('dob', output_field=models.DateField()).year,
-        #                              output_field=models.IntegerField())
     ).filter(dob_as_date__lte=cutoff_date)
 
     return customers
