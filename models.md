@@ -23,3 +23,22 @@ class Message(models.Model):
     class Meta:
             ordering = ['created']
 ```
+
+## Setting table name
+
+```python
+from django.db import models
+
+class Customer(models.Model):
+
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    occupation = models.CharField(max_length=255)
+    birth_number = models.CharField(max_length=255)
+    
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+    
+    class Meta:
+        db_table = 'customers'
+```
