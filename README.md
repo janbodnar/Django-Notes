@@ -284,6 +284,16 @@ urlpatterns = [
 ]
 ```
 
+or 
+
+```python
+from debug_toolbar.toolbar import debug_toolbar_urls
+
+urlpatterns = [
+    ...
+] + debug_toolbar_urls()
+```
+
 Resolve `JavaScript files are resolving to the wrong content type` error on  
 Windows:  
 
