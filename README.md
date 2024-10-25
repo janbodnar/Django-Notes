@@ -242,6 +242,18 @@ After submitting POST data, return `HttpResponseRedirect`.
 return HttpResponseRedirect(reverse('home'))
 ```
 
+## Generate secret key
+
+```
+py manage.py shell
+```
+
+```python
+from django.core.management.utils import get_random_secret 
+
+print(get_random_secret_key())
+```
+
 ## Enable toolbar
 
 Install module: `pip install django-debug-toolbar`  
