@@ -1,5 +1,24 @@
 # Validation
 
+## Simple regex validation
+
+```python
+from django.db import models
+from django.core.validators import RegexValidator
+# Create your models here.
+
+
+class Customer(models.Model):
+
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    occupation = models.CharField(max_length=255)
+    birth_number = models.CharField(max_length=255, validators=[
+                                    RegexValidator(f'^\d\d\d\d\d\d/\d\d\d\d$', 
+                                                   message="wrong birth number")])
+```
+
+
 ## Clean a specific field 
 
 ```python
