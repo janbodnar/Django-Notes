@@ -36,6 +36,21 @@ def fetch_data(request):
 or 
 
 ```python
+from django.http import JsonResponse
+
+from . models import Car
+
+def home(req):
+
+    all = Car.objects.all()
+    ctx = {'cars': list(all.values())}
+
+    return JsonResponse(ctx)
+```
+
+or 
+
+```python
 def fetch_data(request):
 
     dop = User.objects.filter(
