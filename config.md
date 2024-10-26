@@ -1,5 +1,7 @@
 # Configuration
 
+## Environment variables
+
 They `python-decouple` package can be used for configuration.  
 
 Inside the `.env` file:
