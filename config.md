@@ -5,7 +5,7 @@ They `python-decouple` package can be used for configuration.
 Inside the `.env` file:
 
 ```
-SECRET_KEY=django-insecure-zl&sv%+yvc_0=618^sr)87j$*l#gy_3mv8eu_&(!_idocyphk8
+SECRET_KEY=@lywhkp7^ccmvjv03pv6kh&y8f3+gtj49i@*bace0tb0lo6nb%
 ENGINE=django.db.backends.postgresql
 HOST=localhost
 NAME=testdb
