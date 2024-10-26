@@ -254,62 +254,6 @@ from django.core.management.utils import get_random_secret
 print(get_random_secret_key())
 ```
 
-## Enable toolbar
-
-Install module: `pip install django-debug-toolbar`  
-
-In `settings.py`:  
-
-```python
-INSTALLED_APPS = [
-    ...
-    'django.contrib.staticfiles',
-
-    'debug_toolbar',
-    'lynx',
-]
-
-MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-    ...
-]
-```
-
-In main `ulrs.py` file:  
-
-```python
-urlpatterns = [
-    ...
-    path('__debug__/', include('debug_toolbar.urls'))
-]
-```
-
-or 
-
-```python
-from debug_toolbar.toolbar import debug_toolbar_urls
-
-urlpatterns = [
-    ...
-] + debug_toolbar_urls()
-```
-
-Resolve `JavaScript files are resolving to the wrong content type` error on  
-Windows:  
-
-```python
-import mimetypes
-
-mimetypes.add_type("application/javascript", ".js", True)
-
-DEBUG_TOOLBAR_CONFIG = {
-    "INTERCEPT_REDIRECTS": False,
-}
-
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
-```
 
 ## Pagination
 
