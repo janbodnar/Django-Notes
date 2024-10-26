@@ -19,6 +19,8 @@ In `settings.py` file:
 ```python
 from decouple import config
 
+SECRET_KEY = config('SECRET_KEY')
+
 ...
 
 DATABASES = {
