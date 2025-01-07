@@ -4,15 +4,15 @@
 
 The key components of testing in Django:
 
-1. **TestCase**: A subclass of Python’s standard `unittest.TestCase` tailored for Django applications.
+1. **TestCase**: A subclass of Python’s standard `unittest.TestCase` tailored for Django applications.  
    It provides tools for testing models, views, forms, and more.  
-3. **Test Client**: Simulates requests to your Django views, allowing you to test response statuses,
+3. **Test Client**: Simulates requests to your Django views, allowing you to test response statuses,  
    content, and behavior.  
-5. **Fixtures**: Files containing serialized data used to populate the test database with initial data
+5. **Fixtures**: Files containing serialized data used to populate the test database with initial data  
     before tests run.  
-7. **Assertions**: Methods to verify that the code behaves as expected, such as `assertEqual`, `assertTrue`, and `assertRaises`.
-8. **Isolation**: Each test runs in a separate environment to ensure tests do not interfere with each other, using
-   a temporary test database.  
+7. **Assertions**: Methods to verify that the code behaves as expected, such as `assertEqual`, `assertTrue`, and `assertRaises`.  
+8. **Isolation**: Each test runs in a separate environment to ensure tests do not interfere with each other, using  
+   a temporary test database.    
 
 
 
