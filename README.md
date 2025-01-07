@@ -77,7 +77,7 @@ def home(req):
 ## The tests directory 
 
 We can move `tests.py` file into the `test` directory, where we create component tests such as  
-`test_models.py`.  We run tests then with `py manage.py test`.  
+`test_models.py`. Also create the `__init__.py` file.  We run tests then with `py manage.py test`.  
 
 
 ## Custom 404 error message
