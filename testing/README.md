@@ -9,7 +9,7 @@ We can move `tests.py` file into the `test` directory, where we create component
 
 ## Common test commands 
 
-Of course! Here are 25 common Django test commands presented in a table:
+Common Django test commands:
 
 | Command | Description |
 |---------|-------------|
