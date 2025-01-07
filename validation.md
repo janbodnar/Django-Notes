@@ -49,7 +49,7 @@ class ProductForm(forms.ModelForm):
         return name
 ```
 
-The `clien_name` is automatically called for the `name` field.  
+The `client_name` is automatically called for the `name` field.  
 
 ```python
 from django.shortcuts import render
