@@ -101,6 +101,41 @@ environment, making it easier to identify and fix issues in your Django applicat
 
 If you have any more questions or need further assistance, feel free to ask!
 
+## Assertions 
+
+Common assertion methods in Django's `TestCase` class:
+
+| Assertion Method                 | Description                                                                                          |
+|----------------------------------|------------------------------------------------------------------------------------------------------|
+| `assertEqual(a, b)`              | Checks if `a` and `b` are equal.                                                                      |
+| `assertNotEqual(a, b)`           | Checks if `a` and `b` are not equal.                                                                  |
+| `assertTrue(x)`                  | Checks if `x` is `True`.                                                                              |
+| `assertFalse(x)`                 | Checks if `x` is `False`.                                                                             |
+| `assertIs(a, b)`                 | Checks if `a` and `b` are the same object.                                                            |
+| `assertIsNot(a, b)`              | Checks if `a` and `b` are not the same object.                                                        |
+| `assertIsNone(x)`                | Checks if `x` is `None`.                                                                              |
+| `assertIsNotNone(x)`             | Checks if `x` is not `None`.                                                                          |
+| `assertIn(a, b)`                 | Checks if `a` is in `b`.                                                                              |
+| `assertNotIn(a, b)`              | Checks if `a` is not in `b`.                                                                          |
+| `assertIsInstance(a, b)`         | Checks if `a` is an instance of `b`.                                                                  |
+| `assertNotIsInstance(a, b)`      | Checks if `a` is not an instance of `b`.                                                              |
+| `assertRaises(exception, func)`  | Checks if `func` raises the specified `exception`.                                                    |
+| `assertRaisesMessage(exception, msg, func)` | Checks if `func` raises the specified `exception` with the expected message `msg`.                      |
+| `assertAlmostEqual(a, b)`        | Checks if `a` and `b` are approximately equal, within a small tolerance.                             |
+| `assertNotAlmostEqual(a, b)`     | Checks if `a` and `b` are not approximately equal.                                                   |
+| `assertGreater(a, b)`            | Checks if `a` is greater than `b`.                                                                    |
+| `assertGreaterEqual(a, b)`       | Checks if `a` is greater than or equal to `b`.                                                        |
+| `assertLess(a, b)`               | Checks if `a` is less than `b`.                                                                       |
+| `assertLessEqual(a, b)`          | Checks if `a` is less than or equal to `b`.                                                           |
+| `assertRegex(text, regex)`       | Checks if `text` matches the regular expression `regex`.                                              |
+| `assertNotRegex(text, regex)`    | Checks if `text` does not match the regular expression `regex`.                                        |
+| `assertContains(response, text)` | Checks if `text` is in the `response` content (typically used for testing HTML responses).            |
+| `assertNotContains(response, text)` | Checks if `text` is not in the `response` content.                                                  |
+| `assertRedirects(response, expected_url)` | Checks if the `response` is a redirect to the `expected_url`.                                 |
+
+These assertion methods help you verify that your Django application behaves as expected during testing. 
+
+
 
 ## Common test commands 
 
