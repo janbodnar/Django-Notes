@@ -20,6 +20,8 @@ class Product(models.Model):
         return self.name
 ```
 
+The `tests.py` file:
+
 ```python
 from django.test import TestCase, tag
 from .models import Product
