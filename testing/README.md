@@ -22,13 +22,13 @@ We can move `tests.py` file into the `test` directory, where we create component
 `test_models.py`. Also create the `__init__.py` file.  We run tests then with `py manage.py test`.  
 
 
-### Django's TestCase
+## TestCase
 
-Django's `TestCase` is a subclass of Python’s standard `unittest.TestCase`. It is designed specifically for 
-testing Django applications. `TestCase` provides a set of tools and methods for creating and running tests in  
-Django projects, making it easier to test your models, views, forms, and other components.
+Django's `TestCase` is a subclass of Python’s standard `unittest.TestCase`. It is designed specifically for  
+testing Django applications. `TestCase` provides a set of tools and methods for creating and running tests in   
+Django projects, making it easier to test your models, views, forms, and other components.  
 
-### Basic Characteristics of Django's TestCase
+## Basic Characteristics of Django's TestCase
 
 1. **Database Setup**:
    - `TestCase` creates a separate test database for running tests.
@@ -47,12 +47,12 @@ Django projects, making it easier to test your models, views, forms, and other c
 4. **tearDown Method**:
    - The `tearDown` method is called after each test method.
    - It is used to clean up any resources or data after the tests run.
-   - Typically, you won't need to override this method in Django tests, as the test runner handles cleanup.
+   - Typically, you won't need to override this method in Django tests, as the test runner handles cleanup.  
 
 5. **Assertions**:
    - `TestCase` provides various assertion methods to check the outcomes of your tests.
-   - Common assertions include `assertEqual`, `assertTrue`, `assertFalse`, `assertRaises`, and more.
-   - These assertions help you verify that your code behaves as expected.
+   - Common assertions include `assertEqual`, `assertTrue`, `assertFalse`, `assertRaises`, and more.  
+   - These assertions help you verify that your code behaves as expected.  
 
 6. **Client**:
    - `TestCase` includes a test client that allows you to simulate requests to your Django views.
