@@ -1,6 +1,12 @@
 # Testing in Django
 
 
+## The tests directory 
+
+We can move `tests.py` file into the `test` directory, where we create component tests such as  
+`test_models.py`. Also create the `__init__.py` file.  We run tests then with `py manage.py test`.  
+
+
 ## Common test commands 
 
 Of course! Here are 25 common Django test commands presented in a table:
