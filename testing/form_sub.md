@@ -1,4 +1,4 @@
-# Form submition
+# Form submission
 
 
 The `Contact` model in `models.py`:
@@ -144,3 +144,117 @@ class ContactFormTest(TestCase):
         self.assertEqual(Contact.objects.count(), 0)
 ```
 
+## Expanded example 
+
+Example tests error messages that are shown when the form receives invalid  
+data. 
+
+
+The `Contact` in `models.py`:
+
+```python
+from django.db import models
+from django.core.validators import EmailValidator, MinLengthValidator
+
+class Contact(models.Model):
+    name = models.CharField(max_length=100, validators=[MinLengthValidator(1, "Please enter your name.")])
+    email = models.EmailField(validators=[EmailValidator("Please enter a valid email address.")])
+    message = models.TextField(validators=[MinLengthValidator(1, "Please enter your message.")])
+
+    def __str__(self):
+        return self.name
+```
+
+The `ContactForm` in `forms.py`:
+
+```python
+from django import forms
+from .models import Contact
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['name', 'email', 'message']
+        error_messages = {
+            'name': {
+                'required': 'Please enter your name.',
+            },
+            'email': {
+                'required': 'Please enter your email address.',
+                'invalid': 'Please enter a valid email address.',
+            },
+            'message': {
+                'required': 'Please enter your message.',
+            },
+        }
+```
+
+The `contact.html` in templates:
+
+```python
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Us</title>
+</head>
+<body>
+    <h1>Contact Us</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if form.errors %}
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+```
+
+The `tests.py`:
+
+```python
+from django.test import TestCase, Client
+from django.urls import reverse
+from .models import Contact
+
+class ContactFormTest(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+
+    def test_contact_form_get(self):
+        response = self.client.get(reverse('contact'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'contact.html')
+
+    def test_contact_form_post_valid(self):
+        response = self.client.post(reverse('contact'), {
+            'name': 'John Doe',
+            'email': 'john.doe@example.com',
+            'message': 'This is a test message.'
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('success'))
+        self.assertEqual(Contact.objects.count(), 1)
+        self.assertEqual(Contact.objects.first().name, 'John Doe')
+
+    def test_contact_form_post_invalid(self):
+        response = self.client.post(reverse('contact'), {
+            'name': '',
+            'email': 'invalid-email',
+            'message': ''
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'contact.html')
+        self.assertContains(response, "Please enter your name.")
+        self.assertContains(response, "Please enter a valid email address.")
+        self.assertContains(response, "Please enter your message.")
+        self.assertEqual(Contact.objects.count(), 0)
+```
