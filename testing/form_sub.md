@@ -6,7 +6,7 @@ and taking appropriate actions based on the input.
 
 ## The is_valid method
 
-When `is_valid()` is called on a `ModelForm`, it performs the following steps:
+When `is_valid` is called on a `ModelForm`, it performs the following steps:
 
 1. **Form Field Validation**:
    - First, Django validates each form field according to the rules defined in the  
@@ -22,8 +22,8 @@ When `is_valid()` is called on a `ModelForm`, it performs the following steps:
    - This includes validations such as unique constraints, custom rules, and more.  
 
 4. **Returning the Validation Result**:
-   - If all validations (field-level, form-level, and model-level) pass, `is_valid()` returns `True`.  
-   - If any validation fails, `is_valid()` returns `False`, and the errors are stored in the
+   - If all validations (field-level, form-level, and model-level) pass, `is_valid` returns `True`.  
+   - If any validation fails, `is_valid` returns `False`, and the errors are stored in the
    - form's `errors` attribute.
 
 
