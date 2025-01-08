@@ -9,7 +9,7 @@ and taking appropriate actions based on the input.
 When `is_valid()` is called on a `ModelForm`, it performs the following steps:
 
 1. **Form Field Validation**:
-   - First, Django validates each form field according to the rules defined in the
+   - First, Django validates each form field according to the rules defined in the  
      form and model field validators (e.g., required fields, data types, length constraints).
 
 2. **Calling the Form's `clean` Method**:
@@ -17,7 +17,7 @@ When `is_valid()` is called on a `ModelForm`, it performs the following steps:
      perform any custom form-level validation.
 
 3. **Calling the Model's `clean` Method**:
-   - If the form is a `ModelForm`, Django additionally calls the model's `clean` method. This
+   - If the form is a `ModelForm`, Django additionally calls the model's `clean` method. This  
      ensures that any custom validation logic defined at the model level is executed.  
    - This includes validations such as unique constraints, custom rules, and more.  
 
