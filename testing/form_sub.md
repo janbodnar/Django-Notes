@@ -1,0 +1,146 @@
+# Form submition
+
+
+The `Contact` model in `models.py`:
+
+```python
+from django.db import models
+
+class Contact(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    message = models.TextField()
+
+    def __str__(self):
+        return self.name
+```
+
+The `ContactForm` in `forms.py`:
+
+```python
+from django import forms
+from .models import Contact
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['name', 'email', 'message']
+```
+
+The views in `views.py`:
+
+```python
+from django.shortcuts import render, redirect
+from .forms import ContactForm
+
+def contact_view(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('success')
+    else:
+        form = ContactForm()
+    return render(request, 'contact.html', {'form': form})
+
+def success_view(request):
+    return render(request, 'success.html')
+```
+
+The URLs in `urls.py`:
+
+```python
+from django.urls import path
+from .views import contact_view, success_view
+
+urlpatterns = [
+    path('contact/', contact_view, name='contact'),
+    path('success/', success_view, name='success'),
+]
+```
+
+The main URLs:
+
+```python
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('myapp.urls')),
+]
+```
+
+The `contact.html` in templates: 
+
+```python
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Us</title>
+</head>
+<body>
+    <h1>Contact Us</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+```
+
+The `success.html` in templates:
+
+```python
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Success</title>
+</head>
+<body>
+    <h1>Thank You!</h1>
+    <p>Your message has been sent successfully.</p>
+</body>
+</html>
+```
+
+The `tests.py`:
+
+```python
+from django.test import TestCase, Client
+from django.urls import reverse
+from .models import Contact
+
+class ContactFormTest(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+
+    def test_contact_form_get(self):
+        response = self.client.get(reverse('contact'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'contact.html')
+
+    def test_contact_form_post_valid(self):
+        response = self.client.post(reverse('contact'), {
+            'name': 'John Doe',
+            'email': 'john.doe@example.com',
+            'message': 'This is a test message.'
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('success'))
+        self.assertEqual(Contact.objects.count(), 1)
+        self.assertEqual(Contact.objects.first().name, 'John Doe')
+
+    def test_contact_form_post_invalid(self):
+        response = self.client.post(reverse('contact'), {
+            'name': '',
+            'email': 'invalid-email',
+            'message': ''
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'contact.html')
+        self.assertEqual(Contact.objects.count(), 0)
+```
+
