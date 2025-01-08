@@ -252,19 +252,10 @@ The `contact.html` in templates:
     <title>Contact Us</title>
 </head>
 <body>
-    <h1>Contact Us</h1>
+    <h1>Contact Form</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        {% if form.errors %}
-            <ul>
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                {% endfor %}
-            </ul>
-        {% endif %}
         <button type="submit">Submit</button>
     </form>
 </body>
