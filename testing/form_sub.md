@@ -73,7 +73,7 @@ urlpatterns = [
 
 The `contact.html` in templates: 
 
-```python
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -92,7 +92,7 @@ The `contact.html` in templates:
 
 The `success.html` in templates:
 
-```python
+```html
 <!DOCTYPE html>
 <html>
 <head>
