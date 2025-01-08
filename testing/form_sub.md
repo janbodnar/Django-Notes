@@ -4,6 +4,29 @@ Form submission in Django is the process of creating and handling forms in a Dja
 application. This involves rendering a form to the user, processing the submitted data,  
 and taking appropriate actions based on the input.
 
+## The is_valid method
+
+When `is_valid()` is called on a `ModelForm`, it performs the following steps:
+
+1. **Form Field Validation**:
+   - First, Django validates each form field according to the rules defined in the
+     form and model field validators (e.g., required fields, data types, length constraints).
+
+2. **Calling the Form's `clean` Method**:
+   - If all individual field validations pass, Django then calls the form's `clean` method to  
+     perform any custom form-level validation.
+
+3. **Calling the Model's `clean` Method**:
+   - If the form is a `ModelForm`, Django additionally calls the model's `clean` method. This
+     ensures that any custom validation logic defined at the model level is executed.  
+   - This includes validations such as unique constraints, custom rules, and more.  
+
+4. **Returning the Validation Result**:
+   - If all validations (field-level, form-level, and model-level) pass, `is_valid()` returns `True`.  
+   - If any validation fails, `is_valid()` returns `False`, and the errors are stored in the
+   - form's `errors` attribute.
+
+
 
 The `Contact` model in `models.py`:
 
