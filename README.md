@@ -27,6 +27,24 @@ Deactivate the virtual environment:
 `py manage.py migrate` - run migrations  
 `py manage.py flush` clean the database; need to create a new superuser  
 
+## Configure app
+
+We configure the app (say myapp) in the `settings.py` file located in the main module.  
+
+```python
+...
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    'myapp'
+]
+...
+```
 ## Include URLs from module (app)
 
 In the main project's `urls.py` file, add the `path`.  
@@ -40,6 +58,8 @@ urlpatterns = [
     path('', include('my.urls')),
 ]
 ```
+
+
 
 ## JSON serialize 
 
