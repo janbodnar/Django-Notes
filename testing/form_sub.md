@@ -289,3 +289,55 @@ class ContactFormTest(TestCase):
         self.assertContains(response, "Please enter your message.")
         self.assertEqual(Contact.objects.count(), 0)
 ```
+
+## Test for duplicate email
+
+The `Contact` model in `models.py`:
+
+```python
+from django.db import models
+from django.core.exceptions import ValidationError
+from django.core.validators import EmailValidator, MinLengthValidator
+
+class Contact(models.Model):
+    name = models.CharField(max_length=100, validators=[MinLengthValidator(1, "Please enter your name.")])
+    email = models.EmailField(unique=True, validators=[EmailValidator("Please enter a valid email address.")])
+    message = models.TextField(validators=[MinLengthValidator(1, "Please enter your message.")])
+
+    def clean(self):
+        super().clean()
+        if Contact.objects.filter(email=self.email).exists() and not self.pk:
+            raise ValidationError({"email": "Contact with this email address already exists."})
+
+    def __str__(self):
+        return self.name
+```
+
+The `clean` method is used to add custom validation logic to a Django model. This method is called during model  
+validation, which happens when you explicitly call the `full_clean` method on a model instance or implicitly  
+during form validation if using a `ModelForm`.  
+
+The `super().clean()` line ensures that any validation logic defined in the parent class (`models.Model`)  
+is maintained. It's a good practice to call `super().clean()` to avoid accidentally skipping any built-in validation.  
+
+The `not self.pk` ensures that this validation only applies to new instances (instances without a primary key, pk).  
+For existing instances being updated, `self.pk` would not be `None`, so this part of the condition helps avoid  
+falsely flagging the current instance as a duplicate.
+
+
+The `test_contact_form_post_duplicate_email` test function:
+
+```python
+    def test_contact_form_post_duplicate_email(self):
+        response = self.client.post(reverse('contact'), {
+            'name': 'New User',
+            'email': 'existing@example.com',
+            'message': 'This is another test message.'
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'contact.html')
+        # self.assertIn(b"Contact with this Email address already exists.", response.content)
+        self.assertContains(response, "Contact with this email address already exists.")
+        self.assertEqual(Contact.objects.count(), 1)
+```
+
