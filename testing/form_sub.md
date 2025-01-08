@@ -150,7 +150,7 @@ Example tests error messages that are shown when the form receives invalid
 data. 
 
 
-The `Contact` in `models.py`:
+The `Contact` model in `models.py`:
 
 ```python
 from django.db import models
@@ -191,7 +191,7 @@ class ContactForm(forms.ModelForm):
 
 The `contact.html` in templates:
 
-```python
+```html
 <!DOCTYPE html>
 <html>
 <head>
