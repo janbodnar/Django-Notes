@@ -1,5 +1,9 @@
 # Form submission
 
+Form submission in Django is the process of creating and handling forms in a Django  
+application. This involves rendering a form to the user, processing the submitted data,  
+and taking appropriate actions based on the input.
+
 
 The `Contact` model in `models.py`:
 
