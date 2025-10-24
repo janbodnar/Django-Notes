@@ -27,83 +27,76 @@ Deactivate the virtual environment:
 `py manage.py migrate` - run migrations  
 `py manage.py flush` clean the database; need to create a new superuser  
 
-## Basic commands with uv
 
-Absolutely! Here's a fully expanded and organized list of **Django commands using `uv` only**, with an enhanced **Bonus section** placed at the top for maximum utility.
+## Bonus uv Commands (Environment & Package Management)
 
----
-
-## 🌟 Bonus uv Commands (Environment & Package Management)
-
-| Command                                      | Description                                                  |
-|---------------------------------------------|--------------------------------------------------------------|
-| `uv venv .venv`                             | Create a virtual environment named `.venv`                   |
-| `uv pip install django`                     | Install Django using uv's faster pip                         |
-| `uv pip install -r requirements.txt`        | Install dependencies from a requirements file                |
-| `uv pip freeze > requirements.txt`          | Export current environment's packages to a requirements file |
-| `uv pip list`                               | List installed packages                                      |
-| `uv pip uninstall django`                   | Uninstall Django                                             |
-| `uv pip install pillow`                     | Install Pillow for image handling                           |
-| `uv pip install django-environ`             | Install django-environ for environment variable management   |
-| `uv pip install djangorestframework`        | Install Django REST Framework                               |
-| `uv pip install django-cors-headers`        | Install CORS headers middleware                             |
-| `uv pip install psycopg2`                   | Install PostgreSQL adapter for Django                        |
+| Command | Description |
+| --- | --- |
+| `uv venv .venv` | Create a virtual environment named `.venv` |
+| `uv pip install django` | Install Django using uv's faster pip |
+| `uv pip install -r requirements.txt` | Install dependencies from a requirements file |
+| `uv pip freeze > requirements.txt` | Export current environment's packages to a requirements file |
+| `uv pip list` | List installed packages |
+| `uv pip uninstall django` | Uninstall Django |
+| `uv pip install pillow` | Install Pillow for image handling |
+| `uv pip install django-environ` | Install django-environ for environment variable management |
+| `uv pip install djangorestframework` | Install Django REST Framework |
+| `uv pip install django-cors-headers` | Install CORS headers middleware |
+| `uv pip install psycopg2` | Install PostgreSQL adapter for Django |
 
 ---
 
-## 🚀 Django Project & App Setup
+## Django Project & App Setup
 
-| Command                                      | Description                                                  |
-|---------------------------------------------|--------------------------------------------------------------|
-| `uv django-admin startproject main`         | Create a new Django project named `main`                     |
-| `uv django-admin startproject main .`       | Create a Django project in the current directory             |
-| `uv django-admin startapp myapp`            | Create a new Django app named `myapp`                        |
-
----
-
-## ⚙️ Server & Superuser Management
-
-| Command                                      | Description                                                  |
-|---------------------------------------------|--------------------------------------------------------------|
-| `uv python manage.py runserver`             | Start the development server                                 |
-| `uv python manage.py createsuperuser`       | Create a superuser account                                   |
+| Command | Description |
+| --- | --- |
+| `uv python -m django startproject main` | Create a new Django project named `main` |
+| `uv python -m django startproject main .` | Create a Django project in the current directory |
+| `uv python manage.py startapp myapp` | Create a new Django app named `myapp` (run inside the project dir) |
 
 ---
 
-## 🧱 Database & Migrations
+## Server & Superuser Management
 
-| Command                                      | Description                                                  |
-|---------------------------------------------|--------------------------------------------------------------|
-| `uv python manage.py makemigrations`        | Generate migration files                                     |
-| `uv python manage.py migrate`               | Apply migrations to the database                             |
-| `uv python manage.py flush`                 | Clear the database (requires new superuser afterward)        |
-| `uv python manage.py showmigrations`        | Display all migrations and their status                      |
-| `uv python manage.py sqlmigrate myapp 0001` | Show SQL for a specific migration                            |
-| `uv python manage.py dbshell`               | Open the database shell (if configured)                      |
+| Command | Description |
+| --- | --- |
+| `uv python manage.py runserver` | Start the development server |
+| `uv python manage.py createsuperuser` | Create a superuser account |
 
 ---
 
-## 🧪 Testing & Debugging
+## Database & Migrations
 
-| Command                                      | Description                                                  |
-|---------------------------------------------|--------------------------------------------------------------|
-| `uv python manage.py test`                  | Run Django tests                                             |
-| `uv python manage.py check`                 | Check for project issues                                     |
-
----
-
-## 🛠️ Utilities & Static Files
-
-| Command                                      | Description                                                  |
-|---------------------------------------------|--------------------------------------------------------------|
-| `uv python manage.py collectstatic`         | Collect static files into STATIC_ROOT                        |
-| `uv python manage.py shell`                 | Open Django interactive shell                                |
+| Command | Description |
+| --- | --- |
+| `uv python manage.py makemigrations` | Generate migration files |
+| `uv python manage.py migrate` | Apply migrations to the database |
+| `uv python manage.py flush` | Clear the database (requires new superuser afterward) |
+| `uv python manage.py showmigrations` | Display all migrations and their status |
+| `uv python manage.py sqlmigrate myapp 0001` | Show SQL for a specific migration |
+| `uv python manage.py dbshell` | Open the database shell (if configured) |
 
 ---
 
-Would you like a one-liner script to bootstrap a Django project with uv and all essentials pre-installed?
+## Testing & Debugging
 
+| Command | Description |
+| --- | --- |
+| `uv python manage.py test` | Run Django tests |
+| `uv python manage.py check` | Check for project issues |
+
+---
+
+## Utilities & Static Files
+
+| Command | Description |
+| --- | --- |
+| `uv python manage.py collectstatic` | Collect static files into STATIC\_ROOT |
+| `uv python manage.py shell` | Open Django interactive shell |
 ## Configure app
+
+
+
 
 We configure the app (say myapp) in the `settings.py` file located in the main module.  
 
