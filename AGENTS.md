@@ -20,6 +20,8 @@ Use plain titles like *Basic types*.
 
 Use a **dark theme** for all code blocks.  
 
+Use xh instead of curl when demonstrating client requests on the terminal.  
+
 
 ## Terminology
 
