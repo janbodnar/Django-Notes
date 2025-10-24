@@ -65,6 +65,7 @@ class Customer(models.Model):
     
     class Meta:
         db_table = 'customers'
+```
 
 ## Common field types
 
