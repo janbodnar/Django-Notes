@@ -1,18 +1,25 @@
 # HTTP Handling in Django
 
-This document provides a comprehensive guide to handling HTTP requests and responses in Django. It covers the fundamental concepts and provides practical examples for common use cases.
+This document provides a comprehensive guide to handling HTTP requests and responses in Django. 
+It covers the fundamental concepts and provides practical examples for common use cases.
 
-## Introduction to HttpResponse and HttpRequest
+## HttpResponse and HttpRequest
 
-In Django, the `HttpRequest` and `HttpResponse` objects are central to the way the framework handles web requests and responses. When a user's browser sends a request to a Django application, Django creates an `HttpRequest` object containing metadata about the request, such as the method (GET, POST, etc.), headers, and any data sent.
+In Django, the `HttpRequest` and `HttpResponse` objects are central to the way the framework 
+handles web requests and responses. When a user's browser sends a request to a Django application, 
+Django creates an `HttpRequest` object containing metadata about the request, such as 
+the method (GET, POST, etc.), headers, and any data sent.
 
-Your Django view function takes this `HttpRequest` object as its first argument and is responsible for returning an `HttpResponse` object. This `HttpResponse` object contains the content that will be sent back to the user's browser, along with other information like the content type and status code.
+Your Django view function takes this `HttpRequest` object as its first argument and is responsible for 
+returning an `HttpResponse` object. This `HttpResponse` object contains the content that will be sent 
+back to the user's browser, along with other information like the content type and status code.
 
 ---
 
 ## Plain Text `HttpResponse`
 
-A simple `HttpResponse` can be used to send a plain text response to the client. This is useful for simple API endpoints or for debugging purposes.
+A simple `HttpResponse` can be used to send a plain text response to the client. This is useful 
+for simple API endpoints or for debugging purposes.
 
 In `views.py`, you can create a view that returns a plain text response:
 
