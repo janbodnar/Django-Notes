@@ -12,8 +12,7 @@ Activate the virtual environment:
 On Windows: `.venv\Scripts\activate`  
 On Unix or MacOS: `source ./.venv/bin/activate` 
 
-Deactivate the virtual environment:    
-`deactivate`
+Deactivate the virtual environment: `deactivate`
 
 ## Basic commands 
 
