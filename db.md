@@ -1,5 +1,8 @@
 # Database
 
+Django provides a full-featured database layer covering the ORM, raw SQL,  
+migrations, and transactions.  
+
 Django's database layer is one of the framework's most powerful components.  
 It provides a complete abstraction over relational databases through its  
 Object-Relational Mapping (ORM) system, while still giving developers the  
@@ -56,7 +59,7 @@ set.
 
 Install the appropriate adapter before changing your `DATABASES` setting.  
 
-**PostgreSQL** — use `psycopg2` (the classic C-extension adapter):  
+**PostgreSQL**: use `psycopg2` (the classic C-extension adapter):  
 
 ```bash
 uv add psycopg2-binary
@@ -153,7 +156,7 @@ The `OPTIONS` key passes extra parameters directly to the underlying
 database driver. For MySQL, setting `charset` to `utf8mb4` ensures full  
 Unicode support including emoji storage. `STRICT_TRANS_TABLES` makes MySQL  
 behave more like PostgreSQL by rejecting invalid data instead of silently  
-truncating it.  
+truncating values.  
 
 ### Connection options
 
@@ -305,7 +308,7 @@ To roll back to a specific migration, pass the migration name to `migrate`:
 python manage.py migrate myapp 0001
 ```
 
-Django runs the `database_backwards` operations of every migration applied  
+Django runs the reverse operations of every migration applied  
 after `0001` in reverse order. If a migration has no reverse defined,  
 Django will refuse to roll it back.  
 
@@ -639,9 +642,9 @@ def get_users_by_age(age):
     return adult_customers
 ```
 
-Note the double `%%` inside `strftime`: `%s` is a placeholder consumed by  
-Django's parameter substitution, so literal `%` signs must be escaped as  
-`%%` to survive that substitution step.  
+Note the double `%%` inside `strftime`: `%s` is a placeholder consumed  
+by Django's parameter substitution, so literal `%` signs must be escaped  
+as `%%` to survive that substitution step.  
 
 
 ## Raw SQL with connection.cursor
