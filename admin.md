@@ -14,7 +14,7 @@ The admin interface is available at: `http://127.0.0.1:8000/admin/`.
 
 To access the admin you must first create a superuser account:
 
-```
+```bash
 py manage.py createsuperuser
 ```
 
