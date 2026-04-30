@@ -1,10 +1,15 @@
 # Docker Setup & Best Practices for Django Projects (with uv)
 
+A practical guide to containerizing Django with Docker, docker-compose,  
+and uv for reproducible, secure, production-ready deployments.  
+
 Docker gives Django projects reproducible, portable environments that work  
 the same on every machine and in every stage of the delivery pipeline.  
 Combined with **uv** — a fast, deterministic Python package manager — you  
 get reliable builds, lean images, and consistent dependency resolution  
-without the overhead of traditional pip/venv workflows.
+without the overhead of traditional pip/venv workflows. This guide covers  
+everything from a first `docker compose up` to zero-downtime production  
+deployments, with code examples for every step.
 
 ---
 
@@ -86,6 +91,13 @@ dev = [
 ]
 ```
 
+The `[project]` table defines runtime dependencies that are required in  
+every environment. `psycopg[binary]` is the modern PostgreSQL adapter that  
+ships with pre-compiled C extensions, avoiding the need for `libpq-dev` at  
+runtime. The `[dependency-groups]` table holds extras like test runners  
+that are only installed in development and CI, keeping the production  
+image free of unnecessary packages.
+
 Generate and commit the lockfile:
 
 ```bash
@@ -111,6 +123,14 @@ COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-dev --system
 COPY . .
 ```
+
+Docker executes each `RUN`, `COPY`, and `ADD` instruction as a separate  
+immutable layer, and reuses cached layers when the inputs have not changed.  
+By copying the lockfile and installing dependencies before the application  
+source, only a change to `pyproject.toml` or `uv.lock` triggers a fresh  
+`uv sync`. Changing any Python source file — which happens far more  
+frequently — reuses the cached dependency layer, cutting build times from  
+minutes to seconds on a warm cache.
 
 ### Recommended directory layout
 
@@ -185,6 +205,14 @@ EXPOSE 8000
 CMD ["gunicorn", "myproject.wsgi:application", "--bind", "0.0.0.0:8000"]
 ```
 
+The builder stage installs all Python dependencies (including compilation  
+toolchains if needed) into the system Python. The runtime stage starts  
+from a fresh `python:3.12-slim` image and copies only the installed  
+`site-packages` and binaries — not gcc, libpq-dev, or any other build  
+tool. This means the final image is typically 50–80 MB smaller than a  
+single-stage build, and the attack surface is reduced because build tools  
+are absent at runtime.
+
 ### Using Python slim images
 
 `python:3.12-slim` is based on Debian slim and is the best general  
@@ -204,6 +232,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         gcc \
     && rm -rf /var/lib/apt/lists/*
 ```
+
+`libpq-dev` provides the PostgreSQL client headers required to compile  
+`psycopg` (the C extension). `gcc` is the C compiler needed by several  
+Python packages that ship with native extensions. Both are build-time  
+dependencies only — in the runtime stage, you only need `libpq5` (the  
+shared library), not the dev headers. Deleting `/var/lib/apt/lists/*` in  
+the same `RUN` layer removes the package index, which can save 30–40 MB  
+from the image.
 
 If the package is needed at runtime (e.g. `libpq5`), install it in the  
 runtime stage as well.
@@ -386,6 +422,14 @@ python manage.py migrate --noinput
 exec "$@"
 ```
 
+`set -e` causes the script to exit immediately if any command returns a  
+non-zero status, preventing the server from starting in a broken state.  
+Running migrations here (rather than in the Dockerfile) ensures they  
+execute against the live database at startup, which is only available at  
+runtime. `exec "$@"` replaces the shell process with the container's  
+main command (e.g. `gunicorn`), so signals like `SIGTERM` are delivered  
+directly to the application and Docker can perform a clean shutdown.
+
 Make it executable: `chmod +x entrypoint.sh`
 
 ### Volume mounts
@@ -486,6 +530,14 @@ server {
     }
 }
 ```
+
+The `/static/` and `/media/` blocks let Nginx serve files directly from  
+named volumes, completely bypassing Python — this is orders of magnitude  
+faster than routing those requests through Gunicorn. The proxy headers  
+are essential for Django: `X-Forwarded-For` allows `request.META['REMOTE_ADDR']`  
+to reflect the real client IP rather than the container network address,  
+and `X-Forwarded-Proto` ensures `request.is_secure()` returns `True` for  
+HTTPS requests terminated at the proxy.
 
 ### Static/media file handling
 
@@ -641,6 +693,14 @@ DEBUG = env.bool("DEBUG", default=False)
 DATABASES = {"default": env.db("DATABASE_URL")}
 ```
 
+`django-environ` wraps Python's `os.environ` and adds type coercion,  
+default values, and URL parsing. `env.bool("DEBUG", default=False)` ensures  
+the value is a Python `bool` regardless of whether the shell variable is  
+`"True"`, `"true"`, or `"1"`. `env.db("DATABASE_URL")` parses a standard  
+connection URL such as `postgres://user:pass@host:5432/db` into the  
+`DATABASES` dictionary format Django expects, removing the need to  
+manually split host, port, name, and credentials into separate settings.
+
 ### Avoiding secrets in images
 
 - Never `COPY .env` into a Dockerfile.  
@@ -789,6 +849,15 @@ and context switching.
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-dev --system
 ```
+
+`--mount=type=cache` is a BuildKit feature that mounts a persistent cache  
+directory for the duration of the `RUN` instruction. uv stores downloaded  
+wheel and sdist files in `/root/.cache/uv`, so on the next build, packages  
+that have not changed are read from the local cache instead of being  
+re-downloaded from PyPI. In a CI environment with a warm cache this can  
+reduce a full `uv sync` from 60+ seconds to under 5 seconds, with no  
+impact on the final image size because the cache directory is not  
+committed to any layer.
 
 ### Using slim base images
 
