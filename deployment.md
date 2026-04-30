@@ -4,6 +4,14 @@ A practical, security-focused guide for deploying Django applications to
 production. Covers environment configuration, WSGI/ASGI stacks, Nginx,  
 PostgreSQL, caching, monitoring, and zero-downtime workflows.  
 
+The guide is aimed at intermediate Django developers who are comfortable  
+with local development but need a reliable, opinionated reference for  
+taking an application to a live server. Each section focuses on actionable  
+steps rather than theory, and includes copy-paste-ready configuration  
+snippets for settings files, systemd units, Nginx virtual hosts, and  
+shell commands. Follow the sections in order for a first deployment, or  
+jump directly to a specific topic when hardening an existing setup.  
+
 ---
 
 ## Pre-Deployment Preparation
@@ -910,7 +918,7 @@ from sentry_sdk.integrations.django import DjangoIntegration
 sentry_sdk.init(
     dsn=config('SENTRY_DSN'),
     integrations=[DjangoIntegration()],
-    traces_sample_rate=0.2,   # 20 % of requests for performance data
+    traces_sample_rate=0.2,   # 20% of requests for performance data
     send_default_pii=False,
     environment=config('DJANGO_ENV', default='production'),
 )
