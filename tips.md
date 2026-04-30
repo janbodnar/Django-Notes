@@ -16,7 +16,7 @@ new developers straightforward.
 
 Keep apps small and focused. A flat layout works well for most projects:  
 
-```
+```text
 myproject/
 ├── config/               # Project package (settings, urls, wsgi/asgi)
 │   ├── __init__.py
@@ -115,7 +115,7 @@ DEBUG = env("DEBUG")
 DATABASES = {"default": env.db("DATABASE_URL")}
 ```
 
-```
+```ini
 # .env
 SECRET_KEY=your-secret-key-here
 DEBUG=True
@@ -451,7 +451,7 @@ maintenance pain. Keep templates thin and the template context rich.
 
 Organise templates to mirror the app structure:  
 
-```
+```text
 templates/
 ├── base.html              # Site-wide base layout
 ├── partials/
@@ -515,6 +515,7 @@ register = template.Library()
 
 @register.filter
 def truncate_words(value, num):
+    """Return the first *num* words of *value*, appending '…' if truncated."""
     words = value.split()
     return " ".join(words[:num]) + ("…" if len(words) > num else "")
 ```
@@ -1018,6 +1019,11 @@ from django.http import JsonResponse
 
 
 def health_check(request):
+    """Return 200 OK when the database is reachable, 503 otherwise.
+
+    Used by load balancers and orchestrators (e.g. Kubernetes liveness
+    probes) to determine whether the instance should receive traffic.
+    """
     try:
         connection.ensure_connection()
         db_ok = True
