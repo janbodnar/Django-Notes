@@ -28,7 +28,64 @@ Major milestones include the release of version 1.0 in 2008, which marked the
 framework's maturity and production-readiness, and subsequent versions that  
 have added support for modern web technologies, asynchronous views, improved  
 security features, and better performance. Django follows a time-based release  
-schedule with new major versions released approximately every eight months.
+schedule with new major versions released approximately every eight months.  
+
+## Release History
+
+Django's version history reflects the framework's steady growth from a  
+newsroom tool into a mature, full-featured web framework. The table below  
+highlights the most significant releases and the features they introduced.  
+
+| Version   | Release Date   | Highlights                                     |
+|-----------|----------------|------------------------------------------------|
+| 0.95      | July 2006      | First public release after open-sourcing       |
+| 0.96      | March 2007     | Improved Unicode support and newforms          |
+| 1.0       | September 2008 | Stable API, first production-ready release     |
+| 1.4 LTS   | March 2012     | First LTS release, time zone support           |
+| 1.7       | September 2014 | Built-in database migrations system            |
+| 1.8 LTS   | April 2015     | Multiple template engines support              |
+| 1.11 LTS  | April 2017     | Last release to support Python 2               |
+| 2.0       | December 2017  | Python 3 only, simplified URL routing          |
+| 2.2 LTS   | April 2019     | Window expressions, MariaDB support            |
+| 3.0       | December 2019  | ASGI support, MariaDB 10.1+                    |
+| 3.1       | August 2020    | Async views, middleware, and ORM               |
+| 3.2 LTS   | April 2021     | Automatic `AppConfig` discovery                |
+| 4.0       | December 2021  | `zoneinfo`, form rendering improvements        |
+| 4.2 LTS   | April 2023     | Psycopg 3, database constraint improvements    |
+| 5.0       | December 2023  | Python 3.10+ only, field choices enhancements  |
+| 5.1       | August 2024    | `LoginRequiredMiddleware`, async ORM           |
+| 5.2 LTS   | April 2025     | Composite primary keys, async ORM queries      |
+
+## Release Structure
+
+Django follows a predictable, time-based release schedule. Understanding  
+the release types helps with planning upgrades and choosing the right  
+version for a production deployment.  
+
+**Feature Releases** (`X.Y`) are published approximately every eight  
+months and introduce new features, deprecations, and may remove previously  
+deprecated functionality. Examples include 5.0, 5.1, and 5.2.  
+
+**Long-Term Support (LTS) Releases** are feature releases that receive  
+security and data loss fixes for a minimum of three years. LTS releases  
+are published approximately every two years and always carry a `.2` minor  
+version number (e.g., 3.2, 4.2, 5.2). They are the recommended choice  
+for production deployments that require long-term stability.  
+
+**Patch Releases** (`X.Y.Z`) deliver security fixes and bug fixes for  
+supported versions. They are fully backward compatible and can be applied  
+without modifying application code.  
+
+**Support Windows**: Each feature release is actively supported for  
+approximately 16 months from its release date. LTS releases receive  
+security fixes for at least three years. The Django project publishes a  
+support calendar with exact EOL (end-of-life) dates for each release at  
+djangoproject.com/download.  
+
+**Python Compatibility**: Django advances its minimum Python requirement  
+with each major release. Django 2.0 dropped Python 2 entirely. Django 4.0  
+requires Python 3.8 or later. Django 5.0 and 5.2 both require Python  
+3.10 or later.  
 
 ## Goals and Philosophy
 
@@ -97,6 +154,51 @@ platforms often choose Django for its flexibility and comprehensive feature set.
 Notable companies and organizations using Django include Instagram, Mozilla,  
 NASA, National Geographic, Pinterest, Spotify, The Washington Post, and many  
 more.
+
+## Well-known Projects Built on Django
+
+Django has proven its reliability and scalability by powering some of the  
+most widely used websites and applications on the internet.  
+
+**Instagram** is perhaps the most prominent Django application. Meta uses  
+Django to power one of the world's largest photo and video sharing  
+platforms, serving hundreds of millions of users daily.  
+
+**Mozilla** relies on Django for many of its web properties, including the  
+Firefox Add-ons site (addons.mozilla.org) and various developer tools and  
+services maintained by the Mozilla Foundation.  
+
+**Disqus** is a blog comment hosting service that used Django to handle  
+billions of comments across millions of websites. The Disqus engineering  
+team published influential case studies on scaling Django in production.  
+
+**Pinterest** uses Django for its visual discovery platform, which  
+generates billions of personalized recommendations every day for hundreds  
+of millions of users.  
+
+**Bitbucket** (Atlassian) was one of the most prominent early adopters of  
+Django, powering a major Git and Mercurial code hosting service for  
+millions of software repositories.  
+
+**The Washington Post** uses Django for editorial tools and content  
+delivery systems. Many major media outlets have adopted Django for its  
+strengths in content management and rapid development.  
+
+**Eventbrite** is a global ticketing and event management platform built  
+on Django, processing millions of ticket transactions and event  
+registrations worldwide.  
+
+**Open edX** is the open-source learning management system that powers  
+edX, used by hundreds of universities and corporations worldwide to  
+deliver online courses at scale. It is one of the largest Django codebases  
+in existence.  
+
+**Spotify** uses Django in several backend services, including its web  
+API and various internal tools.  
+
+**NASA** uses Django for a number of public-facing websites and scientific  
+data portals, demonstrating the framework's suitability for government and  
+research applications.  
 
 ## Advantages Over Other Frameworks
 
@@ -179,7 +281,38 @@ The project structure will look like this:
 
 ```
 mywebapp/
+├── .venv/          # Virtual environment managed by uv
+├── mysite/         # Project configuration package
+│   ├── __init__.py # Python package marker
+│   ├── settings.py # Global project configuration
+│   ├── urls.py     # Root URL routing
+│   ├── asgi.py     # ASGI server entry point
+│   └── wsgi.py     # WSGI server entry point
+├── manage.py       # Administrative command-line utility
+└── pyproject.toml  # Project metadata and dependencies
+```
+
+Create a Django app for your application logic. After running `startapp`,  
+the project gains a dedicated module that holds models, views, templates,  
+and URLs for a specific area of the site:
+
+```bash
+uv run python manage.py startapp blog
+```
+
+The full project structure becomes:
+
+```
+mywebapp/
 ├── .venv/
+├── blog/               # Blog application
+│   ├── migrations/     # Auto-generated migration files
+│   ├── __init__.py
+│   ├── admin.py        # Admin site configuration
+│   ├── apps.py         # Application configuration
+│   ├── models.py       # Database models
+│   ├── tests.py        # Test cases
+│   └── views.py        # View functions
 ├── mysite/
 │   ├── __init__.py
 │   ├── settings.py
@@ -190,11 +323,10 @@ mywebapp/
 └── pyproject.toml
 ```
 
-Create a Django app for your application logic:
-
-```bash
-uv run python manage.py startapp blog
-```
+Each Django project is composed of one or more apps. Apps are reusable,  
+self-contained modules that encapsulate a specific area of functionality.  
+The `blog` app will hold all models, views, templates, and URLs related  
+to the blog section of the site.  
 
 Register the app in `mysite/settings.py`:
 
@@ -591,20 +723,18 @@ Available endpoints include:
 - `GET /api/products/low_stock/` - List low stock products
 - `POST /api/products/{id}/restock/` - Restock a product
 
-You can test the API using curl, httpie, or any HTTP client:
+You can test the API using `xh`, httpie, or any HTTP client:
 
 ```bash
 # List all products
-curl http://127.0.0.1:8000/api/products/
+xh GET http://127.0.0.1:8000/api/products/
 
 # Create a new product
-curl -X POST http://127.0.0.1:8000/api/products/ \
-  -H "Content-Type: application/json" \
-  -d '{"name":"Laptop","description":"Gaming laptop",\
-"price":"999.99","stock":50}'
+xh POST http://127.0.0.1:8000/api/products/ \
+  name=Laptop description="Gaming laptop" price:=999.99 stock:=50
 
 # Get low stock products
-curl http://127.0.0.1:8000/api/products/low_stock/
+xh GET http://127.0.0.1:8000/api/products/low_stock/
 ```
 
 This REST API provides a solid foundation that can be extended with additional  
