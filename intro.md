@@ -292,13 +292,15 @@ mywebapp/
 └── pyproject.toml  # Project metadata and dependencies
 ```
 
-Create a Django app for your application logic:
+Create a Django app for your application logic. After running `startapp`,  
+the project gains a dedicated module that holds models, views, templates,  
+and URLs for a specific area of the site:
 
 ```bash
 uv run python manage.py startapp blog
 ```
 
-After running `startapp`, the full project structure becomes:
+The full project structure becomes:
 
 ```
 mywebapp/
